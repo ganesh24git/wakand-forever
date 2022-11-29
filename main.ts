@@ -1,0 +1,33 @@
+sprites.onOverlap(SpriteKind.Guard, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    Namora.setPosition(148, 2)
+})
+info.onScore(20, function () {
+    Namora.destroy()
+    scene.setBackgroundImage(assets.image`wakanda`)
+    game.over(true)
+    effects.confetti.startScreenEffect()
+    game.showLongText("We are safe!", DialogLayout.Bottom)
+    shuri.sayText("WAKANDA FOREVER ", 5000, true)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    info.changeLifeBy(-1)
+    Namora.setPosition(148, 2)
+})
+let Namora: Sprite = null
+let shuri: Sprite = null
+info.setLife(2)
+scene.setBackgroundImage(assets.image`wakanda`)
+shuri = sprites.create(assets.image`shuri`, SpriteKind.Player)
+controller.moveSprite(shuri)
+shuri.setStayInScreen(true)
+Namora = sprites.create(assets.image`namor`, SpriteKind.Enemy)
+Namora.setPosition(148, 2)
+Namora.follow(shuri, 30)
+let Riri = sprites.create(assets.image`riri`, SpriteKind.Enemy)
+let Okoye = sprites.create(assets.image`okoye`, SpriteKind.Enemy)
+controller.moveSprite(Riri, 34, -53)
+controller.moveSprite(Okoye, -68, -58)
+game.showLongText("Help Shuri,okoye and riri escape Namora.", DialogLayout.Full)
+game.showLongText("When game begins,press the ARROW KEYS to move shuri, okoye and Riri.if namor catches you,you will lose points!", DialogLayout.Full)
+game.showLongText("Earn 20 points to win and to stay alive you must keep your heart(s).", DialogLayout.Full)
